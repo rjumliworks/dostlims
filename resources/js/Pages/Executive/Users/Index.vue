@@ -16,7 +16,7 @@
                         </div>
                         <div class="flex-grow-1">
                             <h5 class="mb-0 fs-14"><span class="text-body">List of Users</span></h5>
-                            <p class="text-muted text-truncate-two-lines fs-12">A users comprehensive list of campuses from various schools, providing location and institutional details</p>
+                            <p class="text-muted text-truncate-two-lines fs-12">A comprehensive list of campuses from various schools, providing location and institutional details</p>
                         </div>
                         <div class="flex-shrink-0" style="width: 45%;">
                            
