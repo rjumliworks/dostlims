@@ -31,18 +31,18 @@ class AppServiceProvider extends ServiceProvider
             LoginFailed::class
         );
 
-        // if (App::environment('production')) {
-        //     Artisan::command('migrate:fresh', function () {
-        //         $this->error('-');
-        //     });
+        if (App::environment('production')) {
+            Artisan::command('migrate:fresh', function () {
+                $this->error('-');
+            });
 
-        //     Artisan::command('db:wipe', function () {
-        //         $this->error('-');
-        //     });
+            Artisan::command('db:wipe', function () {
+                $this->error('-');
+            });
 
-        //     Artisan::command('migrate:fresh --seed', function () {
-        //         $this->error('-');
-        //     });
-        // }
+            Artisan::command('migrate:fresh --seed', function () {
+                $this->error('-');
+            });
+        }
     }
 }
