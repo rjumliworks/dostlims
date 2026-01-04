@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('customer_contacts', function (Blueprint $table) {
             $table->engine = 'InnoDB'; 
             $table->bigIncrements('id');
+            $table->string('kradworkz', 64)->unique()->index();
             $table->longText('email');
             $table->longText('contact_no');
             $table->longText('tin')->nullable();

@@ -63,5 +63,6 @@ class DatabaseSeeder extends Seeder
         ]);
 
         $this->call(FacilitiesTableSeeder::class);
+        $this->call(ConfigurationsTableSeeder::class);
     }
 }

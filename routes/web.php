@@ -19,9 +19,9 @@ Route::middleware(['auth','verified'])->group(function () {
 
 Route::get('/search', [App\Http\Controllers\SearchController::class, 'search']);
 
-Route::middleware(['role:Human Resource Officer'])->group(function () {
-    Route::resource('/employees', App\Http\Controllers\HumanResource\EmployeeController::class);
-});
+
+Route::resource('/customers', App\Http\Controllers\Common\CustomerController::class);
+
 
 Route::middleware(['role:Administrator'])->group(function () {
     Route::resource('/users', App\Http\Controllers\Executive\UserController::class);

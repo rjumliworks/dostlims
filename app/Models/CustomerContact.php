@@ -12,10 +12,15 @@ class CustomerContact extends Model
     use LogsActivity;
 
     protected $fillable = [
+        'kradworkz',
         'email',
         'contact_no',
         'tin',
         'customer_id'
+    ];
+
+    protected $hidden = [
+        'kradworkz'
     ];
 
     public function customer()
@@ -25,7 +30,9 @@ class CustomerContact extends Model
 
     public function setEmailAttribute($value)
     {
-        $this->attributes['email'] = Crypt::encryptString($value);
+        $email = strtolower($value);
+        $this->attributes['email'] = Crypt::encryptString($email);
+        $this->attributes['kradworkz'] = hash('sha256', $email);
     }
 
     public function getEmailAttribute($value)
@@ -45,7 +52,7 @@ class CustomerContact extends Model
 
     public function setTinAttribute($value)
     {
-        $this->attributes['tin'] = Crypt::encryptString($value);
+        $this->attributes['tin'] = ($value) ? Crypt::encryptString($value) : NULL;
     }
 
     public function getTinAttribute($value)

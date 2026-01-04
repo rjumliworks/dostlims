@@ -7,6 +7,7 @@ use App\Models\ListRole;
 use App\Models\ListData;
 use App\Models\ListStatus;
 use App\Models\ListDropdown;
+use App\Models\ListIndustry;
 use App\Models\ListLaboratory;
 use App\Models\LocationRegion;
 use App\Models\LocationProvince;
@@ -15,6 +16,19 @@ use App\Models\LocationBarangay;
 
 class DropdownClass
 {  
+    public function industries(){
+        $data = ListIndustry::where('is_active',1)->get()->map(function ($item) {
+            return [
+                'value' => $item->id,
+                'is_main' => $item->is_main,
+                'is_alone' => $item->is_alone,
+                'industry_id' => $item->industry_id,
+                'name' => $item->name
+            ];
+        });
+        return $data;
+    }
+
     public function facilities(){
         $data = Facility::with('province')->where('is_active',1)->get()->map(function ($item) {
             $name = $item->is_psto == 1

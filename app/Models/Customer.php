@@ -27,6 +27,11 @@ class Customer extends Model
         'is_new'
     ];
 
+    public function conformes()
+    {
+        return $this->hasMany('App\Models\CustomerConforme', 'customer_id');
+    }
+
     public function user()
     {
         return $this->belongsTo('App\Models\User', 'user_id', 'id');

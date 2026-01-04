@@ -28,7 +28,7 @@ return new class extends Migration
             $table->foreign('type_id')->references('id')->on('list_dropdowns')->onDelete('cascade');
             $table->unsignedTinyInteger('industry_id');
             $table->foreign('industry_id')->references('id')->on('list_industries')->onDelete('cascade');
-            $table->unsignedTinyInteger('classification_id')->index();
+            $table->unsignedTinyInteger('classification_id');
             $table->foreign('classification_id')->references('id')->on('list_dropdowns')->onDelete('cascade');
             $table->unsignedBigInteger('name_id');
             $table->foreign('name_id')->references('id')->on('customer_names')->onDelete('cascade');

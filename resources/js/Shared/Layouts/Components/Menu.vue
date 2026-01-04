@@ -9,30 +9,21 @@
                 <span class="fw-semibold fs-14" data-key="t-dashboards">Dashboard</span>
                 </Link>
             </li>
-            <template v-if="$page.props.roles.includes('Human Resource Officer')">
-                <li class="menu-title">
-                    <i class="ri-more-fill" aria-expanded="false"></i>
-                    <span data-key="t-menu">Human Resource</span>
-                </li>
-                <li class="nav-item">
-                    <Link href="/humanresource" class="nav-link menu-link"
-                    :class="{'active': $page.component.startsWith('Modules/HumanResource/Dashboard') }">
-                    <i class="ri-apps-fill"></i>
-                    <span class="fw-semibold fs-14" data-key="t-dashboards">Dashboard</span>
-                    </Link>
-                </li>
-                <li class="nav-item">
-                    <Link href="/employees" class="nav-link menu-link"
-                    :class="{'active': $page.component.startsWith('Modules/HumanResource/Employees') }">
-                    <i class="ri-team-fill"></i>
-                    <span class="fw-semibold fs-14" data-key="t-dashboards">Employees</span>
-                    </Link>
-                </li>
-            </template>
-            <template v-if="$page.props.roles.includes('Administrator')">
                 <li class="menu-title">
                     <i class="ri-more-fill" aria-expanded="false"></i>
                     <span data-key="t-menu">Laboratory Modules</span>
+                </li>
+                <li class="nav-item">
+                    <Link href="/customers" class="nav-link menu-link"
+                    :class="{'active': $page.component.startsWith('Modules/Customers') }">
+                    <i class="ri-team-fill"></i>
+                    <span class="fw-semibold fs-14" data-key="t-dashboards">Customers</span>
+                    </Link>
+                </li>
+            <template v-if="$page.props.roles.includes('Administrator')">
+                <li class="menu-title">
+                    <i class="ri-more-fill" aria-expanded="false"></i>
+                    <span data-key="t-menu">Exectuive Modules</span>
                 </li>
                 <li class="nav-item">
                     <Link href="/users" class="nav-link menu-link"
