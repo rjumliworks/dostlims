@@ -30,6 +30,7 @@ class SocialAuthController extends Controller
             ->first();
 
         if (!$user) {
+            dd($socialUser->getEmail());
             $user = User::where('email', $socialUser->getEmail())->first();
 dd($user);
             if ($user) {
