@@ -2,8 +2,10 @@
 
 namespace App\Services\Common\Customer;
 
+use Hashids\Hashids;
 use App\Models\Customer;
 use App\Models\CustomerConforme;
+use App\Http\Resources\Common\Customer\IndexResource;
 
 class UpdateClass
 {
@@ -67,6 +69,25 @@ class UpdateClass
             'data'    => $conforme->refresh(),
             'message' => 'Conforme Updated',
             'info'    => 'The conforme details were successfully updated.',
+        ];
+    }
+
+     public function status($request){
+        $hashids = new Hashids('krad',10);
+        $id = $hashids->decode($request->code);
+
+        $data = Customer::where('id',$id)->first();
+        $data->is_active = $request->is_active;
+        $data->save();
+
+        $data = Customer::select('customers.*', 'customers.name as branch_name')
+        ->join('customer_names', 'customers.name_id', '=', 'customer_names.id')
+        ->with('customer_name:id,name','classification:id,name','sex:id,name','led:id,name','type:id,name','industry:id,name,industry_id,is_main,is_alone,is_active')
+        ->with('address.region:code,name,region','address.province:code,name','address.municipality:code,name','address.barangay:code,name')->where('customers.id',$id[0])->first();
+        return [
+            'data' => new IndexResource($data),
+            'message' => 'Customer Status', 
+            'info' => "You've successfully updated the customer status."
         ];
     }
 

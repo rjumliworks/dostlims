@@ -58,8 +58,7 @@ export default {
             this.showModal = true;
         },
         submit(){
-            this.form.put('/users/update', {
-                errorBag: 'updateProfileInformation',
+            this.form.put('/customers/update', {
                 preserveScroll: true,
                 onSuccess: () => {
                     this.$emit('update',this.$page.props.flash.data.data);

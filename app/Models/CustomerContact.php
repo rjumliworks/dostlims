@@ -80,7 +80,7 @@ class CustomerContact extends Model
         return LogOptions::defaults()
         ->logOnly(['email','contact_no','tin'])
         ->setDescriptionForEvent(fn(string $eventName) => "{$eventName}")
-        ->useLogName('Customer Contact')
+        ->useLogName('Contact')
         ->logOnlyDirty()
         ->dontSubmitEmptyLogs();
     }

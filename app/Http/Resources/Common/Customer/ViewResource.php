@@ -6,7 +6,7 @@ use Hashids\Hashids;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class IndexResource extends JsonResource
+class ViewResource extends JsonResource
 {
     public function toArray(Request $request): array
     {
@@ -23,6 +23,7 @@ class IndexResource extends JsonResource
             'customer' => ($this->is_main) ? $this->customer_name->name :  $this->customer_name->name.' - '.$this->branch_name,
             'is_main' => $this->is_main,
             'is_active' => $this->is_active,
+            'is_synced' => $this->is_synced,
             'is_new' => $this->is_new,
             'customer_name' => $this->customer_name->name,
             'classification' => $this->classification,
@@ -31,6 +32,7 @@ class IndexResource extends JsonResource
             'industry' => $this->industry,
             'sex' => $this->sex,
             'address' => new AddressResource($this->address),
+            'conformes' => $this->conformes,
             'created_at' => $this->created_at
         ];
     }

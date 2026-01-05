@@ -2,9 +2,12 @@
 
 namespace App\Services\Common\Customer;
 
+use Hashids\Hashids;
 use App\Models\Customer;
 use App\Models\CustomerName;
 use App\Models\Configuration;
+use App\Http\Resources\ActivityResource;
+use App\Http\Resources\Common\Customer\ViewResource;
 use App\Http\Resources\Common\Customer\IndexResource;
 
 class ViewClass
@@ -12,7 +15,7 @@ class ViewClass
     public function list($request){
         $data = Customer::select('customers.*', 'customers.name as branch_name')
         ->join('customer_names', 'customers.name_id', '=', 'customer_names.id')
-        ->with('customer_name:id,name','classification:id,name','sex:id,name','led:id,name','industry:id,name,industry_id,is_main,is_alone,is_active')
+        ->with('customer_name:id,name','classification:id,name','sex:id,name','led:id,name','type:id,name','industry:id,name,industry_id,is_main,is_alone,is_active')
         ->with('address.region:code,name,region','address.province:code,name','address.municipality:code,name','address.barangay:code,name')
         ->when($request->keyword, function ($query, $keyword) {
             $query->where(function ($q) use ($keyword) {
@@ -37,9 +40,24 @@ class ViewClass
         ->when($request->sex, fn ($q, $v) => $q->where('sex_id', $v))
         ->when($request->individual, fn ($q, $v) => $q->where('type_id', $v))
         ->orderBy('customers.created_at', 'desc')
+        ->orderBy('customers.id', 'asc')
         ->paginate($request->count ?? 20);
 
         return IndexResource::collection($data);
+    }
+
+    public function view($id){
+        $hashids = new Hashids('krad',10);
+        $id = $hashids->decode($id);
+
+        $data = new ViewResource(
+            Customer::query()
+            ->with('conformes')
+            ->with('customer_name:id,name','classification:id,name','industry:id,name','type:id,name','sex:id,name','led:id,name')
+            ->with('address.region:code,name,region','address.province:code,name','address.municipality:code,name','address.barangay:code,name')
+            ->where('id',$id)->first()
+        );
+        return $data;
     }
 
     public function search($request){
@@ -56,6 +74,13 @@ class ViewClass
         }else{
             return [];
         }
+    }
+
+    public function logs($request)
+    {
+        $customer = Customer::findOrFail($request->id);
+        $data = $customer->activities()->paginate(15);
+        return ActivityResource::collection($data);
     }
 
     public function region(){

@@ -35,6 +35,9 @@ class CustomerController extends Controller
             case 'search':
                 return $this->view->search($request);
             break;
+            case 'logs':
+                return $this->view->logs($request);
+            break;
             default:
             return inertia('Modules/Customers/Index',[
                 'dropdowns' => [
@@ -76,6 +79,8 @@ class CustomerController extends Controller
                 return $this->update->customer($request);
             }else if($request->option == 'type'){
                 return $this->update->type($request);
+            }else if($request->option == 'status'){
+                return $this->update->status($request);
             }else{
                 return $this->update->conforme($request);
             }
@@ -86,6 +91,13 @@ class CustomerController extends Controller
             'message' => $result['message'],
             'info' => $result['info'],
             'status' => $result['status'],
+        ]);
+    }
+
+    public function show($id){
+        $customer = $this->view->view($id);
+        return inertia('Modules/Customers/Profile/Index',[
+            'customer' => $customer
         ]);
     }
 }

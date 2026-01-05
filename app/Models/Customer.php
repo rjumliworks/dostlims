@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Spatie\Activitylog\Models\Activity;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Crypt;
 use Spatie\Activitylog\Traits\LogsActivity;
@@ -122,8 +123,46 @@ class Customer extends Model
         return LogOptions::defaults()
         ->logOnly(['name','name_id','industry_id','classification_id','type_id','sex_id','led_id'])
         ->setDescriptionForEvent(fn(string $eventName) => "{$eventName}")
-        ->useLogName('Customer')
+        ->useLogName('Details')
         ->logOnlyDirty()
         ->dontSubmitEmptyLogs();
+    }
+
+    public function activities()
+    {
+        $this->loadMissing(['address', 'contact', 'conformes']);
+
+        $addressId = $this->address?->id;
+        $contactIds = $this->contact->pluck('id')->toArray();
+        $conformeIds = $this->conformes->pluck('id')->toArray();
+
+        return Activity::with(['causer:id','causer.profile:user_id,firstname,lastname,middlename,suffix_id']) // 👈 eager load here
+        ->where(function ($query) use ($addressId, $contactIds, $conformeIds) {
+
+            $query->where('subject_type', Customer::class)
+                  ->where('subject_id', $this->id);
+
+            if ($addressId) {
+                $query->orWhere(function ($q) use ($addressId) {
+                    $q->where('subject_type', CustomerAddress::class)
+                      ->where('subject_id', $addressId);
+                });
+            }
+
+            if (!empty($contactIds)) {
+                $query->orWhere(function ($q) use ($contactIds) {
+                    $q->where('subject_type', CustomerContact::class)
+                      ->whereIn('subject_id', $contactIds);
+                });
+            }
+
+            if (!empty($conformeIds)) {
+                $query->orWhere(function ($q) use ($conformeIds) {
+                    $q->where('subject_type', CustomerConforme::class)
+                      ->whereIn('subject_id', $conformeIds);
+                });
+            }
+        })
+        ->orderBy('created_at', 'desc')->orderBy('id', 'desc');
     }
 }

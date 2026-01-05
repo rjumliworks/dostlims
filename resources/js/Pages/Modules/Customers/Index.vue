@@ -86,7 +86,10 @@
                                 </tr>
                             </thead>
                             <tbody class="table-white fs-12">
-                                <tr v-for="(list,index) in lists" v-bind:key="index">
+                                <tr v-for="(list,index) in lists" v-bind:key="index" @click="selectRow(index)" :class="{
+                                    'bg-info-subtle': index === selectedRow,
+                                    'bg-danger-subtle': list.is_active === 0 && index !== selectedRow
+                                }">
                                     <td class="text-center"> 
                                         {{ (meta.current_page - 1) * meta.per_page + index + 1 }}.
                                     </td>
@@ -189,7 +192,8 @@ export default {
             },
             icons: ['ri-building-2-fill','ri-user-fill'],
             index: null,
-            index2: null
+            index2: null,
+            selectedRow: null,
         }
     },
     watch: {
@@ -247,10 +251,20 @@ export default {
             this.selectedRow = index;
             this.$refs.activation.show(type,data);
         },
+        updateData(data){
+            this.lists[this.index] = data;
+        },
         viewClass(index,data){
             this.index2 = index;
             this.filter.class = data;
         },
+        selectRow(index) {
+            if (this.selectedRow === index) {
+                this.selectedRow = null;
+            } else {
+                this.selectedRow = index;
+            }
+        }
     }
 }
 </script>
