@@ -30,9 +30,10 @@ class SocialAuthController extends Controller
             ->first();
 
         if (!$user) {
-            dd($socialUser->getEmail());
-            $user = User::where('email', $socialUser->getEmail())->first();
-dd($user);
+            $email = strtolower($socialUser->getEmail());
+            $kradworkz = hash('sha256', $email);
+            $user = User::where('kradworkz', $kradworkz)->first();
+
             if ($user) {
                 // Link existing account
                 $user->update([
