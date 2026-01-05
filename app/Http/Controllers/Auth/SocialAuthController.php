@@ -42,23 +42,10 @@ class SocialAuthController extends Controller
             } else {
                 // Create new user
                 $user = User::create([
-                    'name'        => $socialUser->getName() ?? $socialUser->getNickname(),
-                    'username'    => $socialUser->getEmail(),
-                    'email'       => $socialUser->getEmail(),
-                    'password'    => bcrypt(Str::random(16)),
                     'provider'    => $provider,
                     'provider_id' => $socialUser->getId(),
-                    'role'      => 'Photographer',
                     'email_verified_at' => now()
                 ]);
-                $fullName = $socialUser->getName() ?? $socialUser->getNickname() ?? '';
-                $name = $this->splitFirstLast($fullName);
-                if($user){
-                    UserProfile::create([
-                        'firstname' => $name['first_name'],
-                        'lastname'  => $name['last_name'],
-                    ]);
-                }
             }
         }
 
