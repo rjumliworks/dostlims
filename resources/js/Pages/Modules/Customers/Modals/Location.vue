@@ -3,7 +3,7 @@
         <form class="customform">
             <BRow>
                 <BCol lg="12">
-                    <BRow class="g-3">
+                    <BRow class="g-3 mt-0">
                         <BCol lg="6" class="mt-1">
                             <InputLabel value="Region"/>
                             <Multiselect :options="regions" v-model="form.region" label="name" :searchable="true" placeholder="Select Region" />
@@ -104,7 +104,7 @@ export default {
     computed: {
         isFormValid() {
             const districtRequired = this.districts.length > 0;
-            return this.form.region && this.form.province && this.form.municipality && this.form.barangay &&  (!districtRequired || this.form.district);
+            return this.form.region && this.form.province && this.form.municipality && this.form.barangay && this.form.longitude && this.form.latitude &&  (!districtRequired || this.form.district);
         }
     },
     methods: { 

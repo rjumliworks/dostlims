@@ -16,7 +16,7 @@
                         </div>
                         <div class="flex-grow-1">
                             <h5 class="mb-0 fs-14"><span class="text-body">List of Customers</span></h5>
-                            <p class="text-muted text-truncate-two-lines fs-12">A comprehensive list of campuses from various schools, providing location and institutional details</p>
+                            <p class="text-muted text-truncate-two-lines fs-12">View and manage customer profiles along with their laboratory test requests and related transactions.</p>
                         </div>
                         <div class="flex-shrink-0" style="width: 45%;">
                            
@@ -121,12 +121,12 @@
                                                             <i class="ri-edit-2-fill me-2"></i>Edit
                                                         </a>
                                                     </li>
-                                                    <li><hr class="dropdown-divider"></li>
+                                                    <!-- <li><hr class="dropdown-divider"></li>
                                                     <li>
                                                         <a @click="openRole(list,index)" class="dropdown-item d-flex align-items-center" role="button">
                                                             <i class="ri-calendar-fill me-2"></i>Update Date
                                                         </a>
-                                                    </li>
+                                                    </li> -->
                                                     <li><hr class="dropdown-divider"></li>
                                                     <li>
                                                         <a @click="openActivation('activation',list,index)" class="dropdown-item d-flex align-items-center" :class="(list.is_active) ? 'text-danger' : 'text-success'" href="#removeFileItemModal" data-id="1" data-bs-toggle="modal" role="button">
@@ -137,17 +137,6 @@
                                                 </BDropdown>
                                             </div>
                                         </div>
-                                        <!-- <Link :href="`/customers/${list.code}`">
-                                            <b-button variant="soft-info" class="me-1" v-b-tooltip.hover title="View" size="sm">
-                                                <i class="ri-eye-fill align-bottom"></i>
-                                            </b-button>
-                                        </Link>
-                                        <b-button @click="openEdit(list,index)" variant="soft-warning" class="me-1" v-b-tooltip.hover title="Edit" size="sm">
-                                            <i class="ri-pencil-fill align-bottom"></i>
-                                        </b-button>
-                                         <b-button @click="openUpdate(list,index)" variant="soft-danger" v-b-tooltip.hover title="Update" size="sm">
-                                            <i class="ri-calendar-fill align-bottom"></i>
-                                        </b-button> -->
                                     </td>
                                 </tr>
                             </tbody>

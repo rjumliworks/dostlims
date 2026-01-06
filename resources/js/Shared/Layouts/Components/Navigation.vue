@@ -114,7 +114,7 @@
                                 <img class="rounded-circle header-profile-user" :src="$page.props.user.data.avatar" @error="setDefaultImage($event)" :alt="$page.props.user.data.username">
                                 <span class="text-start ms-xl-2">
                                     <span class="d-none d-xl-inline-block ms-1 fw-medium user-name-text">{{ $page.props.user.data.name }}</span>
-                                    <span class="d-none d-xl-block ms-1 fs-12 user-name-sub-text">Founder</span>
+                                    <span class="d-none d-xl-block ms-1 fs-12 user-name-sub-text">{{ $page.props.roles[0] }}</span>
                                 </span>
                             </span>
                         </template>
@@ -122,7 +122,7 @@
                         <Link class="dropdown-item" href="/profile"><i class="mdi mdi-account-circle text-muted fs-16 align-middle me-1"></i>
                             <span class="align-middle">Profile</span>
                         </Link>
-                        <div class="dropdown-divider"></div>
+                        <!-- <div class="dropdown-divider"></div>
                         <Link class="dropdown-item" href="/chat">
                             <i class=" mdi mdi-message-text-outline text-muted fs-16 align-middle me-1"></i>
                             <span class="align-middle"> Messages</span>
@@ -134,10 +134,10 @@
                         <Link class="dropdown-item" href="/pages/faqs">
                             <i class="mdi mdi-lifebuoy text-muted fs-16 align-middle me-1"></i>
                             <span class="align-middle"> Help</span>
-                        </Link>
+                        </Link> -->
                         <div class="dropdown-divider"></div>
                         <Link class="dropdown-item" href="/pages/profile-setting">
-                            <BBadge variant="success-subtle" class="bg-success-subtle text-success mt-1 float-end">New</BBadge>
+                            <!-- <BBadge variant="success-subtle" class="bg-success-subtle text-success mt-1 float-end">New</BBadge> -->
                             <i class="mdi mdi-cog-outline text-muted fs-16 align-middle me-1"></i>
                             <span class="align-middle"> Settings</span>
                         </Link>

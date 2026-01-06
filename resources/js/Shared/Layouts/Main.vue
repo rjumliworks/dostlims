@@ -12,6 +12,9 @@ export default {
     computed: {
         ...layoutComputed,
         message() {
+            if(this.$page.props.flash.message == 'off'){
+                return false;
+            }
             return (this.$page.props.flash.message) ?  true : false;
         }
     },
